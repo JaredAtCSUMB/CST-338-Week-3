@@ -10,7 +10,30 @@ public class AssignmentThree
 
    public static void main(String[] args)
    {
-      System.out.println("Hello, Team 6!");
+      // valid
+      Card card1 = new Card();
+      System.out.println(card1);
+      
+      // valid
+      Card card2 = new Card('4', Card.Suit.clubs);
+      System.out.println(card2);
+      
+      
+      // invalid
+      Card card3 = new Card('G', Card.Suit.hearts);
+      System.out.println(card3);
+      
+      // valid made invalid
+      card1.set('X', Card.Suit.spades);
+      System.out.println(card1);
+      
+      // invalid made valid
+      card3.set('T', Card.Suit.diamonds);
+      System.out.println(card3);
+      
+      // testing equals
+      System.out.println(card1.equals(card1));
+      System.out.println(card1.equals(card2));
    }
 
 }
@@ -22,44 +45,89 @@ public class AssignmentThree
  */
 class Card
 {
-   public enum Suit {clubs, diamonds, hearts, spades};
    private char value;
    private boolean errorFlag;
    private Suit suit;
-   
+   public enum Suit {clubs, diamonds, hearts, spades};
+
    public Card()
    {
       this('A', Suit.spades);
    }
-   
-   // TODO
+
    public Card(char value, Suit suit)
    {
-
+      set(value, suit);
    }
-   
-   // TODO
+
    public String toString()
    {
-      return "";
+      String message;
+
+      if (!errorFlag) {
+         message = String.format("%s of %s", value, suit);
+      } else {
+         message = "ERROR: Invalid card";
+      }
+      
+      return message;
    }
-   
-   // TODO
+
    public boolean set(char value, Suit suit)
    {
-      return true;
+      boolean wasSet;
+
+      if (isValid(value, suit)) {
+         setValue(value);
+         setSuit(suit);
+         errorFlag = false;
+         wasSet = true;
+      } else {
+         errorFlag = true;
+         wasSet = false;
+      }
+      
+      return wasSet;
    }
-   
-   // TODO
+
    public boolean equals(Card card)
    {
-      return true;
+      boolean areEqual;
+      
+      if(value == card.value && suit == card.suit) {
+         areEqual = true;
+      } else {
+         areEqual = false;
+      }
+      
+      return areEqual;
    }
-   
-   // TODO
+
    private boolean isValid(char value, Suit suit)
    {
-      return true;
+      boolean validCard;
+      
+      switch(value) {
+         case 'A':
+         case '2':
+         case '3':
+         case '4':
+         case '5':
+         case '6':
+         case '7':
+         case '8':
+         case '9':
+         case 'T':
+         case 'J':
+         case 'Q':
+         case 'K':
+            validCard = true;
+            break;
+         default:
+            validCard =  false;
+      }
+      
+      return validCard;
    }
 
    public Suit getSuit()
