@@ -4,8 +4,7 @@
  * distributes cards to those hands from a deck of 52 cards,
  * both unshuffled and shuffled.
  * 
- * @author Team 6: Jared Cheney, Andrew Meraz, Mina Mansour, Chul Kim and 
- *    Agustin Garcia
+ * @author Team 6: Jared Cheney, Andrew Meraz, Chul Kim and Agustin Garcia
  *
  */
 public class AssignmentThree
