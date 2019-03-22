@@ -1,5 +1,8 @@
 /**
- * This application simulates a card game...
+ * This application simulates the dealing of playing cards.
+ * It prompts the user to enter how many hands they want and
+ * distributes cards to those hands from a deck of 52 cards,
+ * both unshuffled and shuffled.
  * 
  * @author Team 6: Jared Cheney, Andrew Meraz, Mina Mansour, Chul Kim and 
  *    Agustin Garcia
@@ -17,7 +20,6 @@ public class AssignmentThree
       // valid
       Card card2 = new Card('4', Card.Suit.clubs);
       System.out.println(card2);
-      
       
       // invalid
       Card card3 = new Card('G', Card.Suit.hearts);
@@ -40,8 +42,6 @@ public class AssignmentThree
 
 /*
  * A class that represents a playing card
- * Values: A, 2, 3, 4, 5, 6, 7, 8, 9, T, J, Q, K
- * Suits: clubs, diamonds, hearts, spades
  */
 class Card
 {
@@ -50,6 +50,7 @@ class Card
    private Suit suit;
    public enum Suit {clubs, diamonds, hearts, spades};
 
+   // Default card is 'A of spades'
    public Card()
    {
       this('A', Suit.spades);
@@ -60,6 +61,10 @@ class Card
       set(value, suit);
    }
 
+   /*
+    * Returns a string representation of a Card object if valid
+    * otherwise returns an error message
+    */
    public String toString()
    {
       String message;
@@ -73,6 +78,12 @@ class Card
       return message;
    }
 
+   /*
+    * Sets the value and suit of a Card if value and suit are valid.
+    * If valid, set errorFlag to false.
+    * If invalid, set errorFlag to true.
+    * Returns true/false if the value and suit were set
+    */
    public boolean set(char value, Suit suit)
    {
       boolean wasSet;
@@ -90,6 +101,11 @@ class Card
       return wasSet;
    }
 
+   /*
+    * Checks the equality of two Card objects.
+    * Returns true if card value and card suit match
+    * Returns false otherwise
+    */
    public boolean equals(Card card)
    {
       boolean areEqual;
@@ -103,6 +119,12 @@ class Card
       return areEqual;
    }
 
+   /*
+    * Checks the validity of value and suit.
+    * Valid values: A, 2, 3, 4, 5, 6, 7, 8, 9, T, J, Q, K
+    * Valid suits: clubs, diamonds, hearts, spades
+    * Note: suits are not validated at this time
+    */
    private boolean isValid(char value, Suit suit)
    {
       boolean validCard;
