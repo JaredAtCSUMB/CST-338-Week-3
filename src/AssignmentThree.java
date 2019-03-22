@@ -61,23 +61,6 @@ class Card
    }
 
    /*
-    * Returns a string representation of a Card object if valid
-    * otherwise returns an error message
-    */
-   public String toString()
-   {
-      String message;
-
-      if (!errorFlag) {
-         message = String.format("%s of %s", value, suit);
-      } else {
-         message = "ERROR: Invalid card";
-      }
-      
-      return message;
-   }
-
-   /*
     * Sets the value and suit of a Card if value and suit are valid.
     * If valid, set errorFlag to false.
     * If invalid, set errorFlag to true.
@@ -98,6 +81,23 @@ class Card
       }
       
       return wasSet;
+   }
+
+   /*
+    * Returns a string representation of a Card object if valid
+    * otherwise returns an error message
+    */
+   public String toString()
+   {
+      String message;
+
+      if (!errorFlag) {
+         message = String.format("%s of %s", value, suit);
+      } else {
+         message = "ERROR: Invalid card";
+      }
+      
+      return message;
    }
 
    /*
@@ -180,8 +180,6 @@ class Card
    {
       this.errorFlag = errorFlag;
    }
-   
-   
 }
 
 /*
