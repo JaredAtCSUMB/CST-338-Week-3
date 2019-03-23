@@ -241,8 +241,8 @@ class Hand
     private int numCards;
     
     public Hand() {
-        //create a default array of Cards
-        this.myCards = new Card[MAX_CARDS];
+       //create a default array of Cards
+       this.myCards = new Card[MAX_CARDS];
     }
     
     /**
@@ -250,7 +250,7 @@ class Hand
      * @return a number of cards
      */
     public int getNumCards() {
-        return numCards;
+       return numCards;
     }
 
     /**
@@ -258,18 +258,19 @@ class Hand
      * @param numCards
      */
     public void setNumCards(int numCards) {
-        this.numCards = numCards;
+       this.numCards = numCards;
     }
 
     /**
      * remove all cards from the hand (in the simplest way).
      */
     public void resetHand() {
-        //nothing to reset as myCards is either null or it's reset already.
-        if (this.myCards == null || this.myCards.length == 0) {
-            return;
-        } 
-        this.myCards = new Card[MAX_CARDS];
+       //nothing to reset as myCards is either null or it's reset already.
+       if (this.myCards == null || this.myCards.length == 0) {
+          return;
+       }
+     
+       this.myCards = new Card[MAX_CARDS];
     }
     
     /**
@@ -280,11 +281,16 @@ class Hand
      * @return true if card was successfully added to the myCards array, otherwise return false.
      */
     public boolean takeCard(Card card) {
-        if (this.numCards == this.myCards.length) {
-            return false;
-        }
-        this.myCards[numCards++] = new Card(card.getValue(), card.getSuit());
-        return true;
+       boolean cardWasTaken;
+ 
+       if (this.numCards == this.myCards.length) {
+          cardWasTaken = false;
+       } else {
+          this.myCards[numCards++] = new Card(card.getValue(), card.getSuit());
+          cardWasTaken = true;  
+       }
+        
+       return cardWasTaken;
     }
     
     /**
@@ -292,9 +298,9 @@ class Hand
      * @return Card and removes the card in the top occupied position of the array.
      */
     public Card playCard() {
-        Card card = this.myCards[--numCards];
-        this.myCards[numCards] = null;
-        return card; 
+       Card card = this.myCards[--numCards];
+       this.myCards[numCards] = null;
+       return card; 
     }
 
     /**
@@ -302,11 +308,13 @@ class Hand
      */
     @Override
     public String toString() {
-        StringBuilder ret = new StringBuilder();
-        for (int i = 0; i < this.numCards; i ++) {
-            ret.append(this.myCards[i]).append(" ");
-        }
-        return ret.toString();
+       StringBuilder myCards = new StringBuilder();
+  
+       for (int i = 0; i < this.numCards; i ++) {
+          myCards.append(this.myCards[i]).append(" ");
+       }
+  
+       return myCards.toString();
     }
     
     /**
@@ -316,15 +324,17 @@ class Hand
      * @return a card with errorFlag = true if k is bad.
      */
     public Card inspectCard(int k) {
-        Card ret = null;
-        if (this.myCards == null || this.myCards.length == 0 || k > this.myCards.length) {
-            Card errorCard = new Card();
-            errorCard.setErrorFlag(true);
-            ret =  errorCard;
-        } else {
-            ret = this.myCards[k];
-        }
-        return ret;
+       Card cardToInspect = null;
+  
+       if (this.myCards == null || this.myCards.length == 0 || k > this.myCards.length) {
+           Card errorCard = new Card();
+           errorCard.setErrorFlag(true);
+           cardToInspect =  errorCard;
+       } else {
+          cardToInspect = this.myCards[k];
+       }
+  
+       return cardToInspect;
     }
 }
 
