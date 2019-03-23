@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * This application simulates the dealing of playing cards.
  * It prompts the user to enter how many hands they want and
@@ -50,6 +48,8 @@ public class AssignmentThree
       //Lets inspect the card from the hand.
       Card inspectCard = hand.inspectCard(0);
       System.out.println(inspectCard);
+      //Test toString()
+      System.out.println("Test toString(): " + hand.toString());
       //Change the card
       card.set('2', Card.Suit.diamonds);
       Card cardFromHand = hand.playCard();
@@ -61,8 +61,6 @@ public class AssignmentThree
       //We should get a null as we have played that card.
       Card goodCard = hand.inspectCard(0);
       System.out.println("Expected null card: " + goodCard);
-      //Test toString()
-      System.out.println(hand.toString());
       System.out.println("End Hand tests......");
    }
 
@@ -89,15 +87,6 @@ class Card
       set(value, suit);
    }
 
-   /**
-    * 
-    * @param card
-    * @return Copy of Card
-    */
-   public static Card newInstance(Card card) {
-       return new Card(card.getValue(), card.getSuit());
-   }
-   
    /*
     * Sets the value and suit of a Card if value and suit are valid.
     * If valid, set errorFlag to false.
@@ -257,6 +246,22 @@ class Hand
     }
     
     /**
+     * 
+     * @return a number of cards
+     */
+    public int getNumCards() {
+        return numCards;
+    }
+
+    /**
+     * 
+     * @param numCards
+     */
+    public void setNumCards(int numCards) {
+        this.numCards = numCards;
+    }
+
+    /**
      * remove all cards from the hand (in the simplest way).
      */
     public void resetHand() {
@@ -278,8 +283,7 @@ class Hand
         if (this.numCards == this.myCards.length) {
             return false;
         }
-        Card cardCopy = Card.newInstance(card);
-        this.myCards[numCards++] = cardCopy;
+        this.myCards[numCards++] = new Card(card.getValue(), card.getSuit());
         return true;
     }
     
@@ -298,7 +302,11 @@ class Hand
      */
     @Override
     public String toString() {
-        return "Hand [myCards=" + Arrays.toString(myCards) + ", numCards=" + numCards + "]";
+        StringBuilder ret = new StringBuilder();
+        for (int i = 0; i < this.numCards; i ++) {
+            ret.append(this.myCards[i]).append(" ");
+        }
+        return ret.toString();
     }
     
     /**
@@ -308,12 +316,15 @@ class Hand
      * @return a card with errorFlag = true if k is bad.
      */
     public Card inspectCard(int k) {
-        if (null == this.myCards || this.myCards.length == 0 || k > this.myCards.length) {
+        Card ret = null;
+        if (this.myCards == null || this.myCards.length == 0 || k > this.myCards.length) {
             Card errorCard = new Card();
             errorCard.setErrorFlag(true);
-            return errorCard;
+            ret =  errorCard;
+        } else {
+            ret = this.myCards[k];
         }
-        return this.myCards[k];
+        return ret;
     }
 }
 
