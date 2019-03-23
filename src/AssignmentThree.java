@@ -35,6 +35,33 @@ public class AssignmentThree
       // testing equals
       System.out.println(card1.equals(card1));
       System.out.println(card1.equals(card2));
+      
+      
+      //Hand class test
+      System.out.println("\nStarting Hand tests......");
+      Card card = new Card('9', Card.Suit.clubs);
+      Hand hand = new Hand();
+      //resetHand() should not throw any error when it's empty
+      hand.resetHand();
+      hand.takeCard(card);
+      System.out.println(card.toString());
+      //Lets inspect the card from the hand.
+      Card inspectCard = hand.inspectCard(0);
+      System.out.println(inspectCard);
+      //Test toString()
+      System.out.println("Test toString(): " + hand.toString());
+      //Change the card
+      card.set('2', Card.Suit.diamonds);
+      Card cardFromHand = hand.playCard();
+      //Changes should NOT have effected what was put in to the hand.
+      System.out.println(cardFromHand.toString());
+      //We should get an error Card.
+      Card exepectedBadCard = hand.inspectCard(5000);
+      System.out.println(exepectedBadCard.toString());
+      //We should get a null as we have played that card.
+      Card goodCard = hand.inspectCard(0);
+      System.out.println("Expected null card: " + goodCard);
+      System.out.println("End Hand tests......");
    }
 
 }
@@ -118,7 +145,7 @@ class Card
       return areEqual;
    }
 
-   /*
+/*
     * Checks the validity of value and suit.
     * Valid values: A, 2, 3, 4, 5, 6, 7, 8, 9, T, J, Q, K
     * Valid suits: clubs, diamonds, hearts, spades
@@ -182,12 +209,123 @@ class Card
    }
 }
 
-/*
- * A class that represents the cards held by a single player
+/**
+ * A class that represents the cards held by a single player.
+ * 
+ * Hand object usually contains several cards, so we'll need an array of Card objects (myArray) as the principal member of the Hand class.  
+ * Since each game deals a different number of cards into its players hands, and even within a game the number of cards in a hand will increase or decrease,
+ * we must keep track of this with an int value (numCards).  
+ * 
+ * We'll need constructors, mutators, etc., of course.  
+ * 
+ * We'll also want a way for the hand to receive a card (from the deck or somewhere else), 
+ * 
+ * and play a card (to the table or to another player).  
+ * 
+ * These two methods will be called takeCard() and playCard(), respectively. 
+ * 
+ * Since this class has no information about the game being played, it always puts new cards received by takeCard() into the next available location of the array (index position numCards) 
+ * 
+ * and plays a card via playCard() from the highest occupied location (index position numCards - 1).  
+ * 
+ * The client game application would somehow prepare this highest position with the correct card to be played before calling Hand's playCard() method. 
+ * 
+ *  This detail is not our concern.
+ * @author charlesk
+ *
  */
 class Hand
 {
-   // empty
+    public static final int MAX_CARDS = 100;
+    private Card[] myCards;
+    private int numCards;
+    
+    public Hand() {
+        //create a default array of Cards
+        this.myCards = new Card[MAX_CARDS];
+    }
+    
+    /**
+     * 
+     * @return a number of cards
+     */
+    public int getNumCards() {
+        return numCards;
+    }
+
+    /**
+     * 
+     * @param numCards
+     */
+    public void setNumCards(int numCards) {
+        this.numCards = numCards;
+    }
+
+    /**
+     * remove all cards from the hand (in the simplest way).
+     */
+    public void resetHand() {
+        //nothing to reset as myCards is either null or it's reset already.
+        if (this.myCards == null || this.myCards.length == 0) {
+            return;
+        } 
+        this.myCards = new Card[MAX_CARDS];
+    }
+    
+    /**
+     * adds a card to the next available position in the myCards array.
+     * This is an object copy, not a reference copy, since the source of the Card might destroy or change 
+     * its data after our Hand gets it -- we want our local data to be exactly as it was when we received it.
+     * @param card
+     * @return true if card was successfully added to the myCards array, otherwise return false.
+     */
+    public boolean takeCard(Card card) {
+        if (this.numCards == this.myCards.length) {
+            return false;
+        }
+        this.myCards[numCards++] = new Card(card.getValue(), card.getSuit());
+        return true;
+    }
+    
+    /**
+     * 
+     * @return Card and removes the card in the top occupied position of the array.
+     */
+    public Card playCard() {
+        Card card = this.myCards[--numCards];
+        this.myCards[numCards] = null;
+        return card; 
+    }
+
+    /**
+     * 
+     */
+    @Override
+    public String toString() {
+        StringBuilder ret = new StringBuilder();
+        for (int i = 0; i < this.numCards; i ++) {
+            ret.append(this.myCards[i]).append(" ");
+        }
+        return ret.toString();
+    }
+    
+    /**
+     * Accessor for an individual card.
+     * 
+     * @param k
+     * @return a card with errorFlag = true if k is bad.
+     */
+    public Card inspectCard(int k) {
+        Card ret = null;
+        if (this.myCards == null || this.myCards.length == 0 || k > this.myCards.length) {
+            Card errorCard = new Card();
+            errorCard.setErrorFlag(true);
+            ret =  errorCard;
+        } else {
+            ret = this.myCards[k];
+        }
+        return ret;
+    }
 }
 
 /*
