@@ -266,7 +266,7 @@ class Hand
      */
     public void resetHand() {
         //nothing to reset as myCards is either null or it's reset already.
-        if (null == this.myCards || this.myCards.length == 0) {
+        if (this.myCards == null || this.myCards.length == 0) {
             return;
         } 
         this.myCards = new Card[MAX_CARDS];
