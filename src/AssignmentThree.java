@@ -398,11 +398,11 @@ class Hand
        Card cardToInspect = null;
   
        if (this.myCards == null || this.myCards.length == 0 || k > this.myCards.length) {
-           Card errorCard = new Card();
-           errorCard.setErrorFlag(true);
-           cardToInspect =  errorCard;
+          Card errorCard = new Card();
+          errorCard.setErrorFlag(true);
+          cardToInspect =  errorCard;
        } else {
-          cardToInspect = this.myCards[k];
+         cardToInspect = this.myCards[k];
        }
   
        return cardToInspect;
@@ -415,7 +415,7 @@ class Hand
  */
 class Deck
 {
-	public static final int MAX_CARDS = 6 * 52;
+   public static final int MAX_CARDS = 6 * 52;
    private static Card[] masterPack = new Card[52];
    private Card[] cards;
    private int topCard;
@@ -432,13 +432,14 @@ class Deck
    public Deck(int numPacks)
    {
       allocateMasterPack();
+
       //Fatal error if more than 6 decks used. 
-      if (numPacks * 52 > MAX_CARDS)
-      {
+      if (numPacks * 52 > MAX_CARDS) {
          System.out.println("Fatal Error. Too many decks. Need "
                + "count between 1 and 6");
          System.exit(0);
       }
+
       this.cards = new Card[52 * numPacks];
       init(numPacks);
    }
@@ -448,10 +449,9 @@ class Deck
    {
       topCard = 52 * numPacks - 1;
       int x = 0;
-      for(int i = 0; i < numPacks; i++)
-      {
-         for(int j = 0; j < 52; j++)
-         {
+
+      for(int i = 0; i < numPacks; i++) {
+         for(int j = 0; j < 52; j++) {
             cards[x++] = masterPack[j];
          }
       }
@@ -462,8 +462,8 @@ class Deck
    {
       int rand;
       Card temp;
-      for(int i = 0; i < cards.length; i++)
-      {
+
+      for(int i = 0; i < cards.length; i++) {
          temp = cards[i]; //create a temp variable for the current card
          //Math.random is used to get a random card from the array to switch
          //with the current card.
@@ -490,17 +490,16 @@ class Deck
    public Card inspectCard(int k)
    {
       Card cardToInspect;
-      if(this.cards == null || this.cards.length == 0 || 
-            k > this.cards.length)
-      {
+
+      if(this.cards == null || this.cards.length == 0
+            || k > this.cards.length) {
          Card errorCard = new Card();
          errorCard.setErrorFlag(true);
          cardToInspect = errorCard; 
-      }
-      else
-      {
+      } else {
          cardToInspect = this.cards[k];
       }
+
       return cardToInspect;
    }
    
@@ -510,64 +509,38 @@ class Deck
       char cardValue;
       int k = 0; //used to count the index of the masterPack deck.
       Card.Suit[] suits = Card.Suit.values();
-      if(masterPack[51] == null) //if null then create new deck
-      {
-         for (int x = 0; x < suits.length; x++)
-         {
-            for (int i = 1; i < 14; i++)
-            {
-               if (i == 1)
-               {
+
+      if(masterPack[51] == null) { //if null then create new deck
+         for (int x = 0; x < suits.length; x++) {
+            for (int i = 1; i < 14; i++) {
+               if (i == 1) {
                   cardValue = 'A';
-               }
-               else if (i == 10)
-               {
+               } else if (i == 10) {
                   cardValue = 'T';
-               }
-               else if (i == 11)
-               {
+               } else if (i == 11) {
                   cardValue = 'J';
-               }
-               else if (i == 12)
-               {
+               } else if (i == 12) {
                   cardValue = 'Q';
-               }
-               else if (i == 13)
-               {
+               } else if (i == 13) {
                   cardValue = 'K';
-               }
-               else if (i == 2)
-               {
+               } else if (i == 2) {
                   cardValue = '2';
-               }
-               else if (i == 3)
-               {
+               } else if (i == 3) {
                   cardValue = '3';
-               }
-               else if (i == 4)
-               {
+               } else if (i == 4) {
                   cardValue = '4';
-               }
-               else if (i == 5)
-               {
+               } else if (i == 5) {
                   cardValue = '5';
-               }
-               else if (i == 6)
-               {
+               } else if (i == 6) {
                   cardValue = '6';
-               }
-               else if (i == 7)
-               {
+               } else if (i == 7) {
                   cardValue = '7';
-               }
-               else if (i == 8)
-               {
+               } else if (i == 8) {
                   cardValue = '8';
-               }
-               else
-               {
+               } else {
                   cardValue = '9';
                }
+
                masterPack[k++] = new Card(cardValue, suits[x]);
             }
          }
