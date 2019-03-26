@@ -63,21 +63,17 @@ public class AssignmentThree
       System.out.println("Expected null card: " + goodCard);
       System.out.println("End Hand tests......");
       
-    //Deck class test
+      //Deck class test
       System.out.println("Starting Deck Test...");
       System.out.println("Unshuffled two decks:");
       Deck twoDeck = new Deck(2);
       int count = 1;
-      for(int i = 0; i < 52 * 2; i++)
-      {
+      for(int i = 0; i < 52 * 2; i++) {
          System.out.print(twoDeck.dealCard().toString() + " / ");
-         if (count == 5)
-         {
+         if (count == 5) {
             System.out.println();
             count = 1;
-         }
-         else
-         {
+         } else {
             count++;
          }
       }
@@ -86,32 +82,25 @@ public class AssignmentThree
       twoDeck.init(2);
       twoDeck.shuffle();
       count = 1;
-      for(int i = 0; i < 52 * 2; i++)
-      {
+      for(int i = 0; i < 52 * 2; i++) {
          System.out.print(twoDeck.dealCard().toString() + " / ");
-         if (count == 5)
-         {
+         if (count == 5) {
             System.out.println();
             count = 1;
-         }
-         else
-         {
+         } else {
             count++;
          }
       }
+
       System.out.println("\n\nUnshuffled one deck:");
       Deck oneDeck = new Deck();
       count = 1;
-      for(int i = 0; i < 52; i++)
-      {
+      for(int i = 0; i < 52; i++) {
          System.out.print(oneDeck.dealCard().toString() + " / ");
-         if (count == 5)
-         {
+         if (count == 5) {
             System.out.println();
             count = 1;
-         }
-         else
-         {
+         } else {
             count++;
          }
       }
@@ -120,16 +109,12 @@ public class AssignmentThree
       oneDeck.init(1);
       oneDeck.shuffle();
       count = 1;
-      for(int i = 0; i < 52; i++)
-      {
+      for(int i = 0; i < 52; i++) {
          System.out.print(oneDeck.dealCard().toString() + " / ");
-         if (count == 5)
-         {
+         if (count == 5) {
             System.out.println();
             count = 1;
-         }
-         else
-         {
+         } else {
             count++;
          }
       }
