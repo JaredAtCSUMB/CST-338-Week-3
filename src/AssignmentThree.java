@@ -62,6 +62,77 @@ public class AssignmentThree
       Card goodCard = hand.inspectCard(0);
       System.out.println("Expected null card: " + goodCard);
       System.out.println("End Hand tests......");
+      
+    //Deck class test
+      System.out.println("Starting Deck Test...");
+      System.out.println("Unshuffled two decks:");
+      Deck twoDeck = new Deck(2);
+      int count = 1;
+      for(int i = 0; i < 52 * 2; i++)
+      {
+         System.out.print(twoDeck.dealCard().toString() + " / ");
+         if (count == 5)
+         {
+            System.out.println();
+            count = 1;
+         }
+         else
+         {
+            count++;
+         }
+      }
+      
+      System.out.println("\n\nShuffled two decks:");
+      twoDeck.init(2);
+      twoDeck.shuffle();
+      count = 1;
+      for(int i = 0; i < 52 * 2; i++)
+      {
+         System.out.print(twoDeck.dealCard().toString() + " / ");
+         if (count == 5)
+         {
+            System.out.println();
+            count = 1;
+         }
+         else
+         {
+            count++;
+         }
+      }
+      System.out.println("\n\nUnshuffled one deck:");
+      Deck oneDeck = new Deck();
+      count = 1;
+      for(int i = 0; i < 52; i++)
+      {
+         System.out.print(oneDeck.dealCard().toString() + " / ");
+         if (count == 5)
+         {
+            System.out.println();
+            count = 1;
+         }
+         else
+         {
+            count++;
+         }
+      }
+      
+      System.out.println("\n\nShuffled one deck:");
+      oneDeck.init(1);
+      oneDeck.shuffle();
+      count = 1;
+      for(int i = 0; i < 52; i++)
+      {
+         System.out.print(oneDeck.dealCard().toString() + " / ");
+         if (count == 5)
+         {
+            System.out.println();
+            count = 1;
+         }
+         else
+         {
+            count++;
+         }
+      }
    }
 
 }
@@ -344,5 +415,162 @@ class Hand
  */
 class Deck
 {
-   // empty
+	public static final int MAX_CARDS = 6 * 52;
+   private static Card[] masterPack = new Card[52];
+   private Card[] cards;
+   private int topCard;
+   
+   //Overload the deck class; default only 1 class
+   public Deck ()
+   {
+      allocateMasterPack();
+      this.cards = new Card[52];
+      init(1);
+   }
+   
+   //Deck class with number of packs as the argument
+   public Deck(int numPacks)
+   {
+      allocateMasterPack();
+      //Fatal error if more than 6 decks used. 
+      if (numPacks * 52 > MAX_CARDS)
+      {
+         System.out.println("Fatal Error. Too many decks. Need "
+               + "count between 1 and 6");
+         System.exit(0);
+      }
+      this.cards = new Card[52 * numPacks];
+      init(numPacks);
+   }
+   
+   //Initiates the cards array from the masterPack
+   public void init(int numPacks)
+   {
+      topCard = 52 * numPacks - 1;
+      int x = 0;
+      for(int i = 0; i < numPacks; i++)
+      {
+         for(int j = 0; j < 52; j++)
+         {
+            cards[x++] = masterPack[j];
+         }
+      }
+   }
+   
+   //Shuffle changes the position of the cards
+   public void shuffle()
+   {
+      int rand;
+      Card temp;
+      for(int i = 0; i < cards.length; i++)
+      {
+         temp = cards[i]; //create a temp variable for the current card
+         //Math.random is used to get a random card from the array to switch
+         //with the current card.
+         rand = (int)(Math.random() * (cards.length - 1));
+         this.cards[i] = this.cards[rand];
+         this.cards[rand] = temp;
+         
+      }
+   }
+   
+   //returns the top card in the deck
+   public Card dealCard()
+   {
+      return this.cards[getTopCard()];
+   }
+   
+   //selects the top card index and adds 1 after the return
+   public int getTopCard()
+   {
+      return topCard--;
+   }
+   
+   //inspects the card to see if it is valid within the deck
+   public Card inspectCard(int k)
+   {
+      Card cardToInspect;
+      if(this.cards == null || this.cards.length == 0 || 
+            k > this.cards.length)
+      {
+         Card errorCard = new Card();
+         errorCard.setErrorFlag(true);
+         cardToInspect = errorCard; 
+      }
+      else
+      {
+         cardToInspect = this.cards[k];
+      }
+      return cardToInspect;
+   }
+   
+   //creates the master pack of 52 cards that does not change
+   private static void allocateMasterPack()
+   {
+      char cardValue;
+      int k = 0; //used to count the index of the masterPack deck.
+      Card.Suit[] suits = Card.Suit.values();
+      if(masterPack[51] == null) //if null then create new deck
+      {
+         for (int x = 0; x < suits.length; x++)
+         {
+            for (int i = 1; i < 14; i++)
+            {
+               if (i == 1)
+               {
+                  cardValue = 'A';
+               }
+               else if (i == 10)
+               {
+                  cardValue = 'T';
+               }
+               else if (i == 11)
+               {
+                  cardValue = 'J';
+               }
+               else if (i == 12)
+               {
+                  cardValue = 'Q';
+               }
+               else if (i == 13)
+               {
+                  cardValue = 'K';
+               }
+               else if (i == 2)
+               {
+                  cardValue = '2';
+               }
+               else if (i == 3)
+               {
+                  cardValue = '3';
+               }
+               else if (i == 4)
+               {
+                  cardValue = '4';
+               }
+               else if (i == 5)
+               {
+                  cardValue = '5';
+               }
+               else if (i == 6)
+               {
+                  cardValue = '6';
+               }
+               else if (i == 7)
+               {
+                  cardValue = '7';
+               }
+               else if (i == 8)
+               {
+                  cardValue = '8';
+               }
+               else
+               {
+                  cardValue = '9';
+               }
+               masterPack[k++] = new Card(cardValue, suits[x]);
+            }
+         }
+      }
+   }
 }
