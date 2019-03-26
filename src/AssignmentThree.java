@@ -506,42 +506,15 @@ class Deck
    //creates the master pack of 52 cards that does not change
    private static void allocateMasterPack()
    {
-      char cardValue;
       int k = 0; //used to count the index of the masterPack deck.
       Card.Suit[] suits = Card.Suit.values();
+      char[] cardValues = {'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
 
-      if(masterPack[51] == null) { //if null then create new deck
-         for (int x = 0; x < suits.length; x++) {
-            for (int i = 1; i < 14; i++) {
-               if (i == 1) {
-                  cardValue = 'A';
-               } else if (i == 10) {
-                  cardValue = 'T';
-               } else if (i == 11) {
-                  cardValue = 'J';
-               } else if (i == 12) {
-                  cardValue = 'Q';
-               } else if (i == 13) {
-                  cardValue = 'K';
-               } else if (i == 2) {
-                  cardValue = '2';
-               } else if (i == 3) {
-                  cardValue = '3';
-               } else if (i == 4) {
-                  cardValue = '4';
-               } else if (i == 5) {
-                  cardValue = '5';
-               } else if (i == 6) {
-                  cardValue = '6';
-               } else if (i == 7) {
-                  cardValue = '7';
-               } else if (i == 8) {
-                  cardValue = '8';
-               } else {
-                  cardValue = '9';
-               }
-
-               masterPack[k++] = new Card(cardValue, suits[x]);
+      //if null then create new deck
+      if(masterPack[51] == null) {
+         for(Card.Suit suit : suits) {
+            for(char value : cardValues) {
+               masterPack[k++] = new Card(value, suit);
             }
          }
       }
