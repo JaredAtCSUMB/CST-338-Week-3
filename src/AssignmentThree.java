@@ -408,9 +408,7 @@ class Deck
    //Overload the deck class; default only 1 class
    public Deck ()
    {
-      allocateMasterPack();
-      this.cards = new Card[52];
-      init(1);
+      this(1);
    }
    
    //Deck class with number of packs as the argument
