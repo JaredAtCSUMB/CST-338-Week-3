@@ -18,6 +18,7 @@ public class AssignmentThree
       // runTests();
       Scanner keyboard = new Scanner(System.in);
       int playerCount = 0;
+      int cardsLeft = 52;
       Deck deck = new Deck();
       Hand[] hands;
 
@@ -27,6 +28,7 @@ public class AssignmentThree
          playerCount = keyboard.nextInt();
       }
 
+      // set the number of hands equal to the playercount entered
       hands = new Hand[playerCount];
       
       // initialize each hand
@@ -35,7 +37,6 @@ public class AssignmentThree
       }
       
       // deal the unshuffled cards evenly between the hands
-      int cardsLeft = 52;
       while (cardsLeft > 0) {
          for (Hand hand : hands) {
             if (cardsLeft > 0) {
@@ -61,7 +62,7 @@ public class AssignmentThree
       deck = new Deck();
       deck.shuffle();
       
-   // deal the shuffled cards evenly between the hands
+      // deal the shuffled cards evenly between the hands
       cardsLeft = 52;
       while (cardsLeft > 0) {
          for (Hand hand : hands) {
