@@ -16,18 +16,34 @@ public class AssignmentThree
    {
       // this method prints all tests from assignment phases
       // runTests();
+      Scanner keyboard = new Scanner(System.in);
+      int playerCount = 0;
+      Deck deck = new Deck();
+      Hand[] hands;
+
+      while(playerCount < 1 || playerCount > 10) {
+         System.out.print("How many hands (1-10): ");
+         playerCount = keyboard.nextInt();
+      }
       
-      Scanner input = new Scanner(System.in);
-      int players;
+      System.out.println("playerCount: " + playerCount);
+      hands = new Hand[playerCount];
       
-      //do-while loop where we interact with player - will keep looping if input is not in range.
-      do
-      {
-         System.out.println("How many hands? (1-10):");
-         players = input.nextInt();
-         input.nextLine();
-         
-      }while(players <= 0 || players > 10);
+      for (Hand hand : hands) {
+         hand = new Hand();
+         hand.takeCard(deck.dealCard());
+         System.out.println("hand: " + hand);
+      }
+            
+      // deal a card into each hand until the deck is empty
+      // print each Hand
+      // reset Hands and Deck
+      // shuffle deck
+      // deal a card into each hand until the deck is empty
+      // print each Hand
+      
+      keyboard.close();
+      
    }
    
    public static void runTests()
