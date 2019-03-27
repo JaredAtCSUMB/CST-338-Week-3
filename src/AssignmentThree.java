@@ -21,6 +21,7 @@ public class AssignmentThree
       Deck deck = new Deck();
       Hand[] hands;
 
+      // get the player count
       while(playerCount < 1 || playerCount > 10) {
          System.out.print("How many hands (1-10): ");
          playerCount = keyboard.nextInt();
@@ -28,10 +29,12 @@ public class AssignmentThree
 
       hands = new Hand[playerCount];
       
+      // initialize each hand
       for (int i = 0; i < playerCount; i++) {
          hands[i] = new Hand();
       }
       
+      // deal the unshuffled cards evenly between the hands
       int cardsLeft = 52;
       while (cardsLeft > 0) {
          for (Hand hand : hands) {
@@ -42,19 +45,23 @@ public class AssignmentThree
          }
       }
       
-      System.out.println("Here are our hands, from unshuffled deck: ");
+      // print unshuffled hands
+      System.out.println("\nHere are our hands, from UNSHUFFLED deck: ");
       for (Hand hand : hands) {
-         System.out.println("hand: " + hand);
+         System.out.printf("Hand = ( %s )%n", hand);
       }
       
+      // reset hands
       for (int i = 0; i < playerCount; i++) {
          hands[i].resetHand();
          hands[i] = new Hand();
       }
       
+      // reset and shuffle the deck
       deck = new Deck();
       deck.shuffle();
       
+   // deal the shuffled cards evenly between the hands
       cardsLeft = 52;
       while (cardsLeft > 0) {
          for (Hand hand : hands) {
@@ -65,14 +72,13 @@ public class AssignmentThree
          }
       }
       
-      System.out.println();
-      System.out.println("Here are our hands, from shuffled deck: ");
+      // print shuffled hands
+      System.out.println("\nHere are our hands, from SHUFFLED deck:");
       for (Hand hand : hands) {
-         System.out.println("hand: " + hand);
+         System.out.printf("Hand = ( %s )%n", hand);
       }
       
-      keyboard.close();
-      
+      keyboard.close();  
    }
    
    public static void runTests()
