@@ -25,18 +25,27 @@ public class AssignmentThree
          System.out.print("How many hands (1-10): ");
          playerCount = keyboard.nextInt();
       }
-      
-      System.out.println("playerCount: " + playerCount);
       hands = new Hand[playerCount];
       
-      for (Hand hand : hands) {
-         hand = new Hand();
-         hand.takeCard(deck.dealCard());
-         System.out.println("hand: " + hand);
+      for (int i = 0; i < playerCount; i++) {
+         hands[i] = new Hand();
       }
-            
-      // deal a card into each hand until the deck is empty
-      // print each Hand
+      
+      int cardsLeft = 52;
+      while (cardsLeft > 0) {
+         for (Hand hand : hands) {
+            if (cardsLeft > 0) {
+               hand.takeCard(deck.dealCard());
+            }
+            cardsLeft--;
+         }
+      }
+      
+      System.out.println("Here are our hands, from unshuffled deck: ");
+      for (Hand hand : hands) {
+            System.out.println("hand: " + hand);
+      }
+      
       // reset Hands and Deck
       // shuffle deck
       // deal a card into each hand until the deck is empty
