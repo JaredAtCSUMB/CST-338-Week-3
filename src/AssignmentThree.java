@@ -79,7 +79,9 @@ public class AssignmentThree
          System.out.printf("Hand = ( %s )%n", hand);
       }
       
-      keyboard.close();  
+      keyboard.close();
+      
+      runTests();
    }
    
    public static void runTests()
@@ -561,13 +563,13 @@ class Deck
    //returns the top card in the deck
    public Card dealCard()
    {
-      return this.cards[getTopCard()];
+      return this.cards[topCard--];
    }
    
    //selects the top card index and adds 1 after the return
    public int getTopCard()
    {
-      return topCard--;
+      return topCard;
    }
    
    //inspects the card to see if it is valid within the deck
