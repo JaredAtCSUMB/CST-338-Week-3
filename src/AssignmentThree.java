@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * This application simulates the dealing of playing cards.
  * It prompts the user to enter how many hands they want and
@@ -12,62 +14,103 @@ public class AssignmentThree
 
    public static void main(String[] args)
    {
-      // valid
-      Card card1 = new Card();
-      System.out.println(card1);
+      // this method prints all tests from assignment phases
+      // runTests();
       
-      // valid
-      Card card2 = new Card('4', Card.Suit.clubs);
-      System.out.println(card2);
+      Scanner input = new Scanner(System.in);
+      int players;
       
-      // invalid
-      Card card3 = new Card('G', Card.Suit.hearts);
-      System.out.println(card3);
+      //do-while loop where we interact with player - will keep looping if input is not in range.
+      do
+      {
+         System.out.println("How many hands? (1-10):");
+         players = input.nextInt();
+         input.nextLine();
+         
+      }while(players <= 0 || players > 10);
+   }
+   
+   public static void runTests()
+   {
+      //Card class test
+      System.out.println("\nStarting Card tests......");
+      Card card1 = new Card('7', Card.Suit.hearts);
+      Card card2 = new Card('U', Card.Suit.hearts);
+      Card card3 = new Card('4', Card.Suit.clubs);
+     
       
-      // valid made invalid
-      card1.set('X', Card.Suit.spades);
-      System.out.println(card1);
+      System.out.println(card1.toString());
+      System.out.println(card2.toString());
+      System.out.println(card3.toString());
       
-      // invalid made valid
-      card3.set('T', Card.Suit.diamonds);
-      System.out.println(card3);
+      card1.set('E', Card.Suit.clubs);
+      card2.set('A', Card.Suit.diamonds);
       
-      // testing equals
-      System.out.println(card1.equals(card1));
-      System.out.println(card1.equals(card2));
-      
+      System.out.println(card1.toString());
+      System.out.println(card2.toString());
+      System.out.println(card3.toString());
+      System.out.println("---------------------------------");
       
       //Hand class test
       System.out.println("\nStarting Hand tests......");
-      Card card = new Card('9', Card.Suit.clubs);
+      Card card4 = new Card('5', Card.Suit.hearts);
+      Card card5 = new Card('K', Card.Suit.clubs);
+      Card card6 = new Card('2', Card.Suit.clubs);
       Hand hand = new Hand();
-      //resetHand() should not throw any error when it's empty
-      hand.resetHand();
-      hand.takeCard(card);
-      System.out.println(card.toString());
-      //Lets inspect the card from the hand.
-      Card inspectCard = hand.inspectCard(0);
-      System.out.println(inspectCard);
-      //Test toString()
-      System.out.println("Test toString(): " + hand.toString());
-      //Change the card
-      card.set('2', Card.Suit.diamonds);
-      Card cardFromHand = hand.playCard();
-      //Changes should NOT have effected what was put in to the hand.
-      System.out.println(cardFromHand.toString());
-      //We should get an error Card.
-      Card exepectedBadCard = hand.inspectCard(5000);
-      System.out.println(exepectedBadCard.toString());
-      //We should get a null as we have played that card.
-      Card goodCard = hand.inspectCard(0);
-      System.out.println("Expected null card: " + goodCard);
-      System.out.println("End Hand tests......");
+      int count = 0;
+      
+      // loop will iterate until max number of cards are reached into hand
+      for (int i = 0; i < Hand.MAX_CARDS; i++) {
+         ++count;
+         switch(count) {
+            case 2:
+               hand.takeCard(card5);
+               break;
+            case 3:
+               hand.takeCard(card6);
+               count = 0;
+               break;
+            default:
+               hand.takeCard(card4);
+               break;
+               
+         }
+      }
+      
+      //Once out of the loop, we will print the entire hand
+      System.out.println("Hand full");
+      System.out.println("After deal:");
+      System.out.println("Hand = " + hand.toString());
+      System.out.println("");
+      
+      //We test inspectCard() here, pursuant to specs.
+      System.out.println("Testing inspectCard():");
+      //legal
+      Card testCard = hand.inspectCard(7);
+      //illegal
+      Card testCard2 = hand.inspectCard(107);
+      System.out.println(testCard.toString());
+      System.out.println(testCard2.toString());
+      System.out.println("");
+      
+      // This loop will play every card in the hand
+      for(int i = hand.getNumCards(); i > 0; i--) {
+         Card playedCard = hand.playCard();
+         System.out.println(playedCard.toString());
+      }
+      
+      //We print out the prescribed empty hand here
+      System.out.println("");
+      System.out.println("After playing all cards:");
+      System.out.println("Hand = " + hand.toString());
+      System.out.println("---------------------------------");
+      System.out.println("");
       
       //Deck class test
       System.out.println("Starting Deck Test...");
       System.out.println("Unshuffled two decks:");
       Deck twoDeck = new Deck(2);
-      int count = 1;
+      count = 1;
       for(int i = 0; i < 52 * 2; i++) {
          System.out.print(twoDeck.dealCard().toString() + " / ");
          if (count == 5) {
@@ -118,6 +161,12 @@ public class AssignmentThree
             count++;
          }
       }
+      System.out.println("");
+      System.out.println("---------------------------------");
+      System.out.println("END TESTS");
+      System.out.println("---------------------------------");
+      System.out.println("");
+      System.out.println("");
    }
 
 }
